@@ -19,101 +19,162 @@ pub enum Item {
     Pollopt(Pollopt),
 }
 
+impl Item {
+    /// Return the id of this item.
+    pub fn id(&self) -> u32 {
+        match self {
+            Item::Story(story) => story.id,
+            Item::Comment(comment) => comment.id,
+            Item::Job(job) =>job.id,
+            Item::Poll(poll) => poll.id,
+            Item::Pollopt(pollopt) => pollopt.id,
+        }
+    }
+
+    /// Return the title of this item, if available.
+    pub fn title(&self) -> Option<&str> {
+        match self {
+            Item::Story(story) => Some(&story.title),
+            Item::Job(job) => Some(&job.title),
+            Item::Poll(poll) => Some(&poll.title),
+            _ => None,
+        }
+    }
+
+    /// Return the author of this item, if available.
+    pub fn author(&self) -> Option<&str> {
+        match self {
+            Item::Story(story) => Some(&story.by),
+            Item::Comment(comment) => Some(&comment.by),
+            Item::Poll(poll) => Some(&poll.by),
+            Item::Pollopt(pollopt) => Some(&pollopt.by),
+            _ => None,
+        }
+    }
+}
+
 /// A story.
 #[derive(Debug, Deserialize)]
 pub struct Story {
     /// The item's unique id.
-    id: u32,
+    pub id: u32,
     /// The total comment count.
-    descendants: u32,
+    pub descendants: u32,
     /// The username of the item's author.
-    by: String,
+    pub by: String,
     /// The ids of the item's comments, in ranked display order.
-    kids: Option<Vec<u32>>,
+    pub kids: Option<Vec<u32>>,
     /// The story's score.
-    score: u32,
+    pub score: u32,
     /// The title of the story.
-    title: String,
+    pub title: String,
     /// The URL of the story.
-    url: Option<String>,
+    pub url: Option<String>,
     /// The story text. HTML.
-    text: Option<String>,
+    pub text: Option<String>,
     /// Creation date of the item, in Unix Time.
-    time: u64,
+    pub time: u64,
 }
 
 /// A comment.
 #[derive(Debug, Deserialize)]
 pub struct Comment {
     /// The item's unique id.
-    id: u32,
+    pub id: u32,
     /// The username of the item's author.
-    by: String,
+    pub by: String,
     /// The ids of the item's comments, in ranked display order.
-    kids: Option<Vec<u32>>,
+    pub kids: Option<Vec<u32>>,
     /// The comment's parent: either another comment or the relevant story.
-    parent: u32,
+    pub parent: u32,
     /// The comment text. HTML.
-    text: String,
+    pub text: String,
     /// Creation date of the item, in Unix Time.
-    time: u64,
+    pub time: u64,
 }
 
 /// A job.
 #[derive(Debug, Deserialize)]
 pub struct Job {
     /// The item's unique id.
-    id: u32,
+    pub id: u32,
     /// The story's score, or the votes for a pollopt.
-    score: u32,
+    pub score: u32,
     /// The job text. HTML.
-    text: Option<String>,
+    pub text: Option<String>,
     /// Creation date of the item, in Unix Time.
-    time: u64,
+    pub time: u64,
     /// The title of the job.
-    title: String,
+    pub title: String,
     /// The URL of the story.
-    url: Option<String>,
+    pub url: Option<String>,
 }
 
 /// A poll.
 #[derive(Debug, Deserialize)]
 pub struct Poll {
     /// The item's unique id.
-    id: u32,
+    pub id: u32,
     /// The username of the item's author.
-    by: String,
+    pub by: String,
     /// The total comment count.
-    descendants: u32,
+    pub descendants: u32,
     /// The ids of the item's comments, in ranked display order.
-    kids: Option<Vec<u32>>,
+    pub kids: Option<Vec<u32>>,
     /// A list of related pollopts, in display order.
-    parts: Option<Vec<u32>>,
+    pub parts: Option<Vec<u32>>,
     /// The story's score.
-    score: u32,
+    pub score: u32,
     /// The title of the story.
-    title: String,
+    pub title: String,
     /// The story text. HTML.
-    text: Option<String>,
+    pub text: Option<String>,
     /// Creation date of the item, in Unix Time.
-    time: u64,
+    pub time: u64,
 }
 
 /// A poll option belonging to a poll.
 #[derive(Debug, Deserialize)]
 pub struct Pollopt {
     /// The item's unique id.
-    id: u32,
+    pub id: u32,
     /// The username of the item's author.
-    by: String,
+    pub by: String,
     /// The pollopt's associated poll.
-    poll: u32,
+    pub poll: u32,
     /// The votes for a pollopt.
-    score: u32,
+    pub score: u32,
     /// The story text. HTML.
-    text: Option<String>,
+    pub text: Option<String>,
     /// Creation date of the item, in Unix Time.
-    time: u64,
+    pub time: u64,
+}
+
+/// A user profile.
+#[derive(Debug, Deserialize)]
+pub struct User {
+    /// The user's unique username. Case-sensitive.
+    pub id: String,
+    /// Creation date of the user, in Unix Time.
+    pub created: u64,
+    /// The user's karma.
+    pub karma: u32,
+    /// Delay in minutes between a comment's creation and its visibility to
+    /// other users.
+    pub delay: Option<u32>,
+    /// The user's optional self-description. HTML.
+    pub about: Option<String>,
+    /// List of the user's stories, polls and comments.
+    pub submitted: Vec<u32>,
+}
+
+/// A list of recently updated items and users.
+#[derive(Debug, Deserialize)]
+pub struct Updates {
+    /// A list of recently changed items.
+    pub items: Vec<u32>,
+    /// A list of recently changed usernames.
+    pub profiles: Vec<String>,
 }
 
 #[cfg(test)]
