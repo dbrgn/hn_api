@@ -1,8 +1,15 @@
 [package]
 name = "hn_api"
+description = " A simple Hacker News API (v0) client library based on reqwest and serde. "
 version = "0.1.0"
 authors = ["Danilo Bargen <mail@dbrgn.ch>"]
 edition = "2018"
+license = "MIT/Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/dbrgn/hn_api/"
+include = ["/src/**/*", "/tests/**/*", "/Cargo.toml", "/README.md", "/CHANGELOG.md", "/LICENSE-*"]
+keywords = ["hacker news", "hn", "api", "client"]
+categories = ["api-bindings"]
 
 [dependencies]
 reqwest = "0.9"
