@@ -8,19 +8,23 @@
 //! should probably use a firebase client crate and subscribe to the live
 //! endpoints directly.
 //!
-//! API Docs: https://github.com/HackerNews/API
+//! API Docs: <https://github.com/HackerNews/API>
 //!
-//! Usage:
+//! ## Usage
 //!
 //! ```rust
 //! use hn_api::HnClient;
 //!
+//! // Initialize HTTP client
 //! let api = HnClient::init()
 //!     .expect("Could not initialize HN client");
+//!
+//! // Fetch latest item
 //! let latest_item_id = api.get_max_item_id()
 //!     .expect("Could not fetch latest item id");
 //! let item = api.get_item(latest_item_id)
 //!     .expect("Could not fetch item");
+//!
 //! println!("Latest item: {:?}", item);
 //! ```
 //!
