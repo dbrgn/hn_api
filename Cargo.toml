@@ -8,7 +8,7 @@ license = "MIT/Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/dbrgn/hn_api/"
 include = ["/src/**/*", "/tests/**/*", "/Cargo.toml", "/README.md", "/CHANGELOG.md", "/LICENSE-*"]
-keywords = ["hacker news", "hn", "api", "client"]
+keywords = ["hackernews", "hn", "api", "client", "ycombinator"]
 categories = ["api-bindings"]
 
 [dependencies]
