@@ -1,4 +1,5 @@
-//! A simple Hacker News API (v0) client library based on reqwest and serde.
+//! A simple synchronous Hacker News API (v0) client library based on reqwest
+//! and serde.
 //!
 //! The library currently implements no caching. It simply exposes endpoints as
 //! methods.
