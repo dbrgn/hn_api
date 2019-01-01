@@ -9,6 +9,20 @@
 //!
 //! API Docs: https://github.com/HackerNews/API
 //!
+//! Usage:
+//!
+//! ```rust
+//! use hn_api::HnClient;
+//!
+//! let api = HnClient::init()
+//!     .expect("Could not initialize HN client");
+//! let latest_item_id = api.get_max_item_id()
+//!     .expect("Could not fetch latest item id");
+//! let item = api.get_item(latest_item_id)
+//!     .expect("Could not fetch item");
+//! println!("Latest item: {:?}", item);
+//! ```
+//!
 //! For an example, see `examples/top.rs`.
 
 #![deny(missing_docs)]
@@ -22,14 +36,14 @@ pub mod types;
 static API_BASE_URL: &str = "https://hacker-news.firebaseio.com/v0";
 
 /// The API client.
-pub struct Api {
+pub struct HnClient {
     client: Client,
 }
 
-impl Api {
+impl HnClient {
 
-    /// Create a new `Api` instance.
-    pub fn new() -> reqwest::Result<Self> {
+    /// Create a new `HnClient` instance.
+    pub fn init() -> reqwest::Result<Self> {
         let client = reqwest::Client::builder()
             .timeout(Duration::from_secs(10))
             .build()?;

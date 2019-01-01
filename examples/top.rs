@@ -1,6 +1,6 @@
-use hn_api::Api;
+use hn_api::HnClient;
 
-fn print(api: &Api, items: &[u32]) {
+fn print(api: &HnClient, items: &[u32]) {
     for id in items {
         let item = api.get_item(*id).unwrap().unwrap();
         let author = item.author().map(|username| {
@@ -19,7 +19,7 @@ fn print(api: &Api, items: &[u32]) {
 fn main() {
     println!("What's new on HN:\n");
 
-    let api = Api::new().unwrap();
+    let api = HnClient::init().unwrap();
 
     let top = api.get_top_stories().unwrap();
     let new = api.get_new_stories().unwrap();
