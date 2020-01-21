@@ -34,7 +34,8 @@
 
 use std::time::Duration;
 
-use reqwest::{self, Client};
+use reqwest;
+use reqwest::blocking::Client;
 
 pub mod types;
 
@@ -49,7 +50,7 @@ impl HnClient {
 
     /// Create a new `HnClient` instance.
     pub fn init() -> reqwest::Result<Self> {
-        let client = reqwest::Client::builder()
+        let client = reqwest::blocking::Client::builder()
             .timeout(Duration::from_secs(10))
             .build()?;
         Ok(Self { client })

@@ -12,7 +12,7 @@ keywords = ["hackernews", "hn", "api", "client", "ycombinator"]
 categories = ["api-bindings"]
 
 [dependencies]
-reqwest = "0.9"
+reqwest = { version = "0.10.1", features = ["json", "blocking"] }
 serde = { version = "1", features = ["derive"] }
 
 [dev-dependencies]
