@@ -24,7 +24,7 @@
 //!     // Fetch latest item
 //!     let latest_item_id = api.get_max_item_id().await
 //!         .expect("Could not fetch latest item id");
-//!     let item = api.get_item(latest_item_id).await
+//!     let item = api.try_get_item(latest_item_id).await
 //!         .expect("Could not fetch item");
 //!
 //!     println!("Latest item: {:?}", item);
