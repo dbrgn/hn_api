@@ -74,11 +74,8 @@ impl HnClient {
     ///
     /// May return `None` if item id is invalid.
     /// Fails if any of the request failed.
-    pub async fn get_items<'a, I>(&self, items: I) -> reqwest::Result<Vec<Option<types::Item>>>
-    where
-        I: IntoIterator<Item = &'a u32>,
-    {
-        join_all(items.into_iter().map(|id| self.get_item(*id)))
+    pub async fn get_items(&self, items: &[u32]) -> reqwest::Result<Vec<Option<types::Item>>> {
+        join_all(items.iter().map(|id| self.get_item(*id)))
             .await
             .into_iter()
             .collect()
@@ -102,9 +99,9 @@ impl HnClient {
     /// Fails if any of the request failed.
     pub async fn get_authors(
         &self,
-        items: &Vec<Option<types::Item>>,
+        items: &[Option<types::Item>],
     ) -> reqwest::Result<Vec<Option<types::User>>> {
-        let authors: reqwest::Result<_> = join_all(items.into_iter().map(|item| {
+        let authors: reqwest::Result<_> = join_all(items.iter().map(|item| {
             let a: OptionFuture<_> = item
                 .as_ref()
                 .and_then(|a| a.author().map(|a| a.to_string()))

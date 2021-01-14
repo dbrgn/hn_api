@@ -1,12 +1,9 @@
 use hn_api::{nonblocking::HnClient, Item, User};
 
-async fn get_items<'a, I>(
+async fn get_items(
     api: &HnClient,
-    items: I,
-) -> reqwest::Result<Vec<(Option<Item>, Option<User>)>>
-where
-    I: IntoIterator<Item = &'a u32>,
-{
+    items: &[u32],
+) -> reqwest::Result<Vec<(Option<Item>, Option<User>)>> {
     let items = api.get_items(items).await?;
     let authors = api.get_authors(&items).await?;
 
