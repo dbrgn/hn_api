@@ -34,8 +34,6 @@
 
 use std::time::Duration;
 
-use reqwest;
-
 use super::types;
 
 static API_BASE_URL: &str = "https://hacker-news.firebaseio.com/v0";
