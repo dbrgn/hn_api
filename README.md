@@ -33,7 +33,7 @@ be dual licensed as above, without any additional terms or conditions.
 
 
 <!-- Badges -->
-[circle-ci]: https://circleci.com/gh/dbrgn/hn_async_api/tree/master
-[circle-ci-badge]: https://circleci.com/gh/dbrgn/hn_async_api/tree/master.svg?style=shield
-[github]: https://github.com/dbrgn/hn_async_api
+[circle-ci]: https://circleci.com/gh/dbrgn/hn_api/tree/master
+[circle-ci-badge]: https://circleci.com/gh/dbrgn/hn_api/tree/master.svg?style=shield
+[github]: https://github.com/dbrgn/hn_api
 [rust-badge]: https://img.shields.io/badge/rust-2018%2B-blue.svg?maxAge=3600
