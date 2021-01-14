@@ -13,19 +13,22 @@
 //! ## Usage
 //!
 //! ```rust
-//! use hn_api::HnClient;
+//! use hn_async_api::HnClient;
 //!
-//! // Initialize HTTP client
-//! let api = HnClient::init()
-//!     .expect("Could not initialize HN client");
+//! #[tokio::main]
+//! async fn main() {
+//!     // Initialize HTTP client
+//!     let api = HnClient::init()
+//!         .expect("Could not initialize HN client");
 //!
-//! // Fetch latest item
-//! let latest_item_id = api.get_max_item_id()
-//!     .expect("Could not fetch latest item id");
-//! let item = api.get_item(latest_item_id)
-//!     .expect("Could not fetch item");
+//!     // Fetch latest item
+//!     let latest_item_id = api.get_max_item_id().await
+//!         .expect("Could not fetch latest item id");
+//!     let item = api.get_item(latest_item_id).await
+//!         .expect("Could not fetch item");
 //!
-//! println!("Latest item: {:?}", item);
+//!     println!("Latest item: {:?}", item);
+//! }
 //! ```
 //!
 //! For an example, see `examples/top.rs`.
