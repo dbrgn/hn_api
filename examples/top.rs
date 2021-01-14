@@ -1,5 +1,5 @@
 use futures::future::{join_all, OptionFuture};
-use hn_api::{
+use hn_async_api::{
     types::{Item, User},
     HnClient,
 };

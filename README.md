@@ -1,9 +1,11 @@
-# hn_api
+# hn_async_api
 
 [![CircleCI][circle-ci-badge]][circle-ci]
 [![Rust][rust-badge]][github]
 
-A simple synchronous [Hacker News API (v0)](https://github.com/HackerNews/API)
+A async fork of [hn_api](https://github.com/dbrgn/hn_api).
+
+A simple asynchronous [Hacker News API (v0)](https://github.com/HackerNews/API)
 client library based on reqwest and serde.
 
 The library currently implements no caching. It simply exposes endpoints as
@@ -33,7 +35,7 @@ be dual licensed as above, without any additional terms or conditions.
 
 
 <!-- Badges -->
-[circle-ci]: https://circleci.com/gh/dbrgn/hn_api/tree/master
-[circle-ci-badge]: https://circleci.com/gh/dbrgn/hn_api/tree/master.svg?style=shield
-[github]: https://github.com/dbrgn/hn_api
+[circle-ci]: https://circleci.com/gh/dialogbox/hn_async_api/tree/master
+[circle-ci-badge]: https://circleci.com/gh/dialogbox/hn_async_api/tree/master.svg?style=shield
+[github]: https://github.com/dialogbox/hn_async_api
 [rust-badge]: https://img.shields.io/badge/rust-2018%2B-blue.svg?maxAge=3600
