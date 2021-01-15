@@ -35,7 +35,7 @@
 
 #![deny(missing_docs)]
 
-use std::time::Duration;
+use std::{fmt::Display, time::Duration};
 
 use futures::future::{join_all, OptionFuture};
 use reqwest::{self, Client};
@@ -103,16 +103,22 @@ impl HnClient {
     /// Return the user with the specified username.
     ///
     /// May return error if username is invalid.
-    pub async fn get_user(&self, username: String) -> Result<types::User> {
-        self.try_get_user(username.clone())
+    pub async fn get_user<T>(&self, username: T) -> Result<types::User>
+    where
+        T: AsRef<str> + Display,
+    {
+        self.try_get_user(&username)
             .await?
-            .ok_or(UserNotFoundError(username))
+            .ok_or_else(|| UserNotFoundError(username.to_string()))
     }
 
     /// Return the user with the specified username.
     ///
     /// May return `None` if username is invalid.
-    pub async fn try_get_user(&self, username: String) -> Result<Option<types::User>> {
+    pub async fn try_get_user<T>(&self, username: T) -> Result<Option<types::User>>
+    where
+        T: AsRef<str> + Display,
+    {
         self.client
             .get(&format!("{}/user/{}.json", API_BASE_URL, username))
             .send()
@@ -135,7 +141,7 @@ impl HnClient {
             })
             .collect::<Result<_>>()?;
 
-        join_all(usernames.into_iter().map(|u| self.get_user(u.to_string())))
+        join_all(usernames.into_iter().map(|u| self.get_user(u)))
             .await
             .into_iter()
             .collect()
@@ -153,7 +159,7 @@ impl HnClient {
             let a: OptionFuture<_> = item
                 .as_ref()
                 .and_then(|a| a.author().map(|a| a.to_string()))
-                .map(|a| self.try_get_user(a))
+                .map(|a| async move { self.try_get_user(&a).await })
                 .into();
             a
         }))
