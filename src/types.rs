@@ -25,7 +25,7 @@ impl Item {
         match self {
             Item::Story(story) => story.id,
             Item::Comment(comment) => comment.id,
-            Item::Job(job) =>job.id,
+            Item::Job(job) => job.id,
             Item::Poll(poll) => poll.id,
             Item::Pollopt(pollopt) => pollopt.id,
         }
@@ -283,5 +283,4 @@ mod tests {
         let _pollopt: Pollopt = serde_json::from_str(&json).unwrap();
         let _item: Item = serde_json::from_str(&json).unwrap();
     }
-
 }
