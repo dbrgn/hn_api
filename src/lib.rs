@@ -35,7 +35,7 @@
 use std::time::Duration;
 
 use reqwest::{self, Client};
-use result::Result;
+use crate::result::Result;
 
 pub mod result;
 pub mod types;
