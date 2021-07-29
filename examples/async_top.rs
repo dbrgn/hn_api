@@ -1,10 +1,14 @@
 use hn_api::{nonblocking::HnClient, Item, Result, User};
 
-async fn get_items(api: &HnClient, items: &[u32]) -> Result<Vec<(Item, User)>> {
+async fn get_items(api: &HnClient, items: &[u32]) -> Result<Vec<(Item, Option<User>)>> {
     let items = api.get_items(items).await?;
-    let authors = api.get_authors(&items).await?;
+    // To convert a form that try_get_authers accepts
+    let items: Vec<Option<Item>> = items.into_iter().map(Some).collect();
+    let authors = api.try_get_authors(&items).await?;
+    // Convert back to the original form
+    let items = items.into_iter().map(Option::unwrap);
 
-    let items_and_authors: Vec<_> = items.into_iter().zip(authors.into_iter()).collect();
+    let items_and_authors: Vec<_> = items.zip(authors.into_iter()).collect();
 
     Ok(items_and_authors)
 }
@@ -13,14 +17,13 @@ async fn print(api: &HnClient, items: &[u32]) {
     let items = get_items(api, items).await.expect("Can not retrive items");
 
     for (item, user) in items {
-        let author = format!("{}, karma {}", user.id, user.karma);
+        print!("- {}: {}", item.id(), item.title().unwrap_or("?"),);
 
-        println!(
-            "- {}: {} (by {})",
-            item.id(),
-            item.title().unwrap_or("?"),
-            author,
-        );
+        if let Some(user) = user {
+            print!(" (by {})", format!("{}, karma {}", user.id, user.karma));
+        }
+
+        println!();
     }
 }
 

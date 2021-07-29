@@ -15,6 +15,10 @@ endpoints directly.
 
 For an example, see `examples/top.rs` and `examples/async_top.rs`.
 
+```shell
+cargo run --package hn_api --example top
+cargo run --package hn_api --example async_top
+```
 
 ## License
 
