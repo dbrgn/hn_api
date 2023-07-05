@@ -3,7 +3,7 @@
 [![CircleCI][circle-ci-badge]][circle-ci]
 [![Rust][rust-badge]][github]
 
-A simple synchronous [Hacker News API (v0)](https://github.com/HackerNews/API)
+A simple synchronous and asynchronous [Hacker News API (v0)](https://github.com/HackerNews/API)
 client library based on reqwest and serde.
 
 The library currently implements no caching. It simply exposes endpoints as
@@ -13,8 +13,12 @@ Furthermore, there is no realtime functionality. If you need that, you
 should probably use a firebase client crate and subscribe to the live
 endpoints directly.
 
-For an example, see `examples/top.rs`.
+For an example, see `examples/top.rs` and `examples/async_top.rs`.
 
+```shell
+cargo run --package hn_api --example top
+cargo run --package hn_api --example async_top
+```
 
 ## License
 

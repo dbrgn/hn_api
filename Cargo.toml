@@ -1,7 +1,7 @@
 [package]
 name = "hn_api"
 description = " A simple Hacker News API (v0) client library based on reqwest and serde. "
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Danilo Bargen <mail@dbrgn.ch>"]
 edition = "2018"
 license = "MIT/Apache-2.0"
@@ -12,8 +12,10 @@ keywords = ["hackernews", "hn", "api", "client", "ycombinator"]
 categories = ["api-bindings"]
 
 [dependencies]
-reqwest = "0.9"
+reqwest = { version = "0.11", features = ["default-tls", "json", "blocking"] }
 serde = { version = "1", features = ["derive"] }
+futures = { version = "0.3", features = ["std"] }
 
 [dev-dependencies]
+tokio = { version = "1.8", features = ["full"] }
 serde_json = "1"
